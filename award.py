@@ -42,6 +42,9 @@ def vote():
         checkbox = driver.find_element(By.ID,"choice-608f84f9-e44a-4e17-baaf-4f2e34c172d7-selector")
         actions = ActionChains(driver)
         actions.move_to_element(checkbox).click(checkbox).perform()
+        time.sleep(3)
+        print("VOTE:" + str(vote_current_index))
+        logging.info("VOTE:" + str(vote_current_index))
     except NoSuchElementException:
         i+= 1
         print("Nothing to click:" + str(i))
@@ -54,9 +57,8 @@ def vote():
         
     # Fermer le navigateur
     vote_current_index += 1
-    print("VOTE:" + str(vote_current_index))
-    logging.info("VOTE:" + str(vote_current_index))
-    time.sleep(1)
+    
+    
    
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
