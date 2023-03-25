@@ -44,7 +44,7 @@ def vote():
         i+= 1
         print("Nothing to click:" + str(i))
         logging.info("Nothing to click:" + str(i))
-        time.sleep(3 * 60)
+        time.sleep(2 * 60)
         
     # Fermer le navigateur
     vote_current_index += 1
