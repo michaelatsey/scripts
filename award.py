@@ -11,6 +11,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 import concurrent.futures
 import logging
+import gc
 
 logging.basicConfig(filename='vote_log.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 mService=Service(ChromeDriverManager().install())
@@ -30,12 +31,13 @@ def vote():
     #options.add_argument("--remote-debugging-port=9222")
     options.add_argument("--no-zygote")
     #options.add_argument("--single-process")
+    options.add_argument("--start-maximized")
 
     # Configuration de Selenium et ouverture du navigateur
     #driver = webdriver.Chrome(options=options)
     driver = webdriver.Chrome(service=mService, options=options)
     driver.get("https://africancreative.net/categorie-meilleur-graphiste-designer")
-    driver.maximize_window()
+    time.sleep(2)
     try:
         checkbox = driver.find_element(By.ID,"choice-608f84f9-e44a-4e17-baaf-4f2e34c172d7-selector")
         actions = ActionChains(driver)
@@ -45,13 +47,17 @@ def vote():
         print("Nothing to click:" + str(i))
         logging.info("Nothing to click:" + str(i))
         time.sleep(1 * 60)
+    finally:
+        driver.quit()
+        del checkbox, actions, driver
+        gc.collect()
         
     # Fermer le navigateur
     vote_current_index += 1
     print("VOTE:" + str(vote_current_index))
     logging.info("VOTE:" + str(vote_current_index))
     time.sleep(1)
-    driver.quit()
+   
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
     results = [executor.submit(vote()) for _ in range(2000)]
