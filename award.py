@@ -18,8 +18,13 @@ def vote():
     # print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
     options = Options()
     options.add_argument("--incognito")
+    options.add_argument('--headless')
+    # options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
     # Configuration de Selenium et ouverture du navigateur
-    driver = webdriver.Chrome(options=options)
+    #driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get("https://africancreative.net/categorie-meilleur-graphiste-designer")
     driver.maximize_window()
     try:
