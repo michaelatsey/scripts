@@ -10,7 +10,9 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 import concurrent.futures
+import logging
 
+logging.basicConfig(filename='vote_log.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 i= 0
 vote_current_index= 0
 def vote():
@@ -40,11 +42,13 @@ def vote():
     except NoSuchElementException:
         i+= 1
         print("Nothing to click:" + str(i))
+        logging.info("Nothing to click:" + str(i))
         time.sleep(3 * 60)
         
     # Fermer le navigateur
     vote_current_index += 1
     print("VOTE:" + str(vote_current_index))
+    logging.info("VOTE:" + str(vote_current_index))
     time.sleep(1)
     driver.quit()
 
