@@ -13,6 +13,7 @@ import concurrent.futures
 import logging
 
 logging.basicConfig(filename='vote_log.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+mService=Service(ChromeDriverManager().install())
 i= 0
 vote_current_index= 0
 def vote():
@@ -32,7 +33,7 @@ def vote():
 
     # Configuration de Selenium et ouverture du navigateur
     #driver = webdriver.Chrome(options=options)
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver = webdriver.Chrome(service=mService, options=options)
     driver.get("https://africancreative.net/categorie-meilleur-graphiste-designer")
     driver.maximize_window()
     try:
