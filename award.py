@@ -28,9 +28,9 @@ def vote():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument("--disable-gpu")
-    #options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--remote-debugging-port=9222")
     options.add_argument("--no-zygote")
-    #options.add_argument("--single-process")
+    options.add_argument("--single-process")
     options.add_argument("--start-maximized")
 
     # Configuration de Selenium et ouverture du navigateur
@@ -52,8 +52,20 @@ def vote():
         time.sleep(1 * 60)
     finally:
         driver.quit()
-        del checkbox, actions, driver
-        gc.collect()
+       # del checkbox, actions, driver
+       # gc.collect()
         
     # Fermer le navigateur
     vote_current_index += 1
+
+
+    # boucle pour cliquer sur la case à cocher plusieurs fois
+with concurrent.futures.ThreadPoolExecutor(max_workers=) as executor:
+    results = [executor.submit(vote) for _ in range(2000)]
+
+# nettoyer les futures
+for future in concurrent.futures.as_completed(results):
+    try:
+        future.result()
+    except Exception as e:
+        print(f"Exception: {e}")
