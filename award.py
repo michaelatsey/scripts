@@ -50,14 +50,10 @@ def vote():
         print("Nothing to click:" + str(i))
         logging.info("Nothing to click:" + str(i))
         time.sleep(1 * 60)
+    finally:
+        driver.quit()
+        del checkbox, actions, driver
+        gc.collect()
         
     # Fermer le navigateur
-    driver.quit()
-    gc.collect()
     vote_current_index += 1
-    
-    
-   
-
-with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-    results = [executor.submit(vote()) for _ in range(2000)]
