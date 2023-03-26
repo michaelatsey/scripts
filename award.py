@@ -49,7 +49,7 @@ def vote():
         i+= 1
         print("Nothing to click:" + str(i))
         logging.info("Nothing to click:" + str(i))
-        time.sleep(1 * 60)
+        time.sleep(5*60)
     finally:
         driver.quit()
        # del checkbox, actions, driver
