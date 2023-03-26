@@ -63,7 +63,7 @@ def vote():
     options.add_argument("--proxy-server=socks5://127.0.0.1:9050")
     driver = webdriver.Chrome(service=mService, options=options)
     driver.get("https://mytest.dev.net/categorie-meilleur-graphiste-designer")
-    logging.info(f"Opened website: {driver.current_url}" + str(i)))
+    
     time.sleep(2)
     try:
         checkbox = driver.find_element(By.ID,"choice-608f84f9-e44a-4e17-baaf-4f2e34c172d7-selector")
