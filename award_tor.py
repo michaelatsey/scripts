@@ -62,7 +62,7 @@ def vote():
     options.add_argument("--start-maximized")
     options.add_argument("--proxy-server=socks5://127.0.0.1:9050")
     driver = webdriver.Chrome(service=mService, options=options)
-    driver.get("https://mytest.dev.net/categorie-meilleur-graphiste-designer")
+    driver.get("https://africancreative.net/categorie-meilleur-graphiste-designer")
     
     time.sleep(2)
     try:
