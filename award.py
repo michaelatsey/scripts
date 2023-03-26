@@ -17,15 +17,9 @@ logging.basicConfig(filename='vote_log.log', level=logging.INFO, format='%(ascti
 mService=Service(ChromeDriverManager().install())
 i= 0
 vote_current_index= 0
-checkbox= None
-actions= None
-driver= None
 def vote():
     global i
     global vote_current_index
-    global checkbox
-    global actions
-    global driver
     # Use a breakpoint in the code line below to debug your script.
     # print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
     options = Options()
@@ -56,12 +50,10 @@ def vote():
         print("Nothing to click:" + str(i))
         logging.info("Nothing to click:" + str(i))
         time.sleep(1 * 60)
-    finally:
-        driver.quit()
-        del checkbox, actions, driver
-        gc.collect()
         
     # Fermer le navigateur
+    driver.quit()
+    gc.collect()
     vote_current_index += 1
     
     
