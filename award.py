@@ -60,7 +60,7 @@ def vote():
 
 
     # boucle pour cliquer sur la case à cocher plusieurs fois
-with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
     results = [executor.submit(vote) for _ in range(2000)]
 
 # nettoyer les futures
