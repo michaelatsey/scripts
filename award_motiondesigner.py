@@ -14,7 +14,20 @@ import logging
 import gc
 import os
 import socket
+import argparse
 
+default_number_vote = 2000
+default_url = 'https://africancreative.net/categorie-meilleur-motion-designer'
+default_identifier ='choice-fdf3aee9-91fc-4394-93c9-49c64eb6b2ad-selector'
+
+parser = argparse.ArgumentParser(description="Award script.", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+# bash or command line args
+parser.add_argument('-v ','--vote', type=int, default=default_number_vote, help='number of votes (default: 2000 votes)')
+parser.add_argument("-i", "--identifier", default=default_identifier, help="totalpoll canditate radio id")
+parser.add_argument("--url", default=default_url, help="url of award")
+args = parser.parse_args()
+config = vars(args)
 
 logging.basicConfig(filename='vote_motion_log.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 mService=Service(ChromeDriverManager().install())
@@ -50,6 +63,7 @@ def change_tor_ip():
 def vote():
     global i
     global vote_current_index
+    global config
         
     options = Options()
     options.add_argument("--incognito")
@@ -63,11 +77,11 @@ def vote():
     options.add_argument("--start-maximized")
     options.add_argument("--proxy-server=socks5://127.0.0.1:9050")
     driver = webdriver.Chrome(service=mService, options=options)
-    driver.get("https://africancreative.net/categorie-meilleur-motion-designer")
+    driver.get(config['url'])
     
     time.sleep(2)
     try:
-        checkbox = driver.find_element(By.ID,"choice-fdf3aee9-91fc-4394-93c9-49c64eb6b2ad-selector")
+        checkbox = driver.find_element(By.ID,config['identifier'])
         actions = ActionChains(driver)
         actions.move_to_element(checkbox).click(checkbox).perform()
         time.sleep(3)
@@ -88,5 +102,5 @@ def vote():
 
 change_tor_ip()
 
-for _ in range(2500):
+for _ in range(config['vote']):
     vote()
